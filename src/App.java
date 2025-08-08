@@ -26,6 +26,7 @@ public class App extends JFrame {
         setSize(400, 200);
         getContentPane().setBackground(new Color(0x16171d));
         setLocationRelativeTo(null);
+        setTitle("Угадай число");
 
         messageLabel = new JLabel("Какое число я загадал?");
         messageLabel.setForeground(new Color(0xffffff));
