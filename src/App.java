@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.net.URL;
@@ -42,11 +43,15 @@ public class App extends JFrame {
         inputField.setCaretColor(new Color(0xffffff));
 
         guessButton = new JButton("Угадать");
+        guessButton.setContentAreaFilled(false);
+        guessButton.setFocusPainted(false);
         guessButton.setBackground(new Color(0x16171d));
         guessButton.setForeground(new Color(0xffffff));
         guessButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        oneMoreTimeButton = new JButton("Попробовать ещё раз?");
+        oneMoreTimeButton = new JButton("Попробовать ещё раз");
+        oneMoreTimeButton.setContentAreaFilled(false);
+        oneMoreTimeButton.setFocusPainted(false);
         oneMoreTimeButton.setBackground(new Color(0x16171d));
         oneMoreTimeButton.setForeground(new Color(0xffffff));
         oneMoreTimeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -73,6 +78,7 @@ public class App extends JFrame {
         guessButton.setEnabled(true);
         inputField.setText("");
         inputField.setEnabled(true);
+        inputField.grabFocus();
     }
 
     private void checkGuess() {
@@ -80,7 +86,8 @@ public class App extends JFrame {
             int guess = Integer.parseInt(inputField.getText());
 
             if (secretNumber == guess) {
-                messageLabel.setText("<html><div style='max-width: 100%; width: 100%; text-align: center;'>Угадал! " + guess + " оказался правильным числом! </div></html>");
+                messageLabel.setText("<html><div style='max-width: 100%; width: 100%; text-align: center;'>Бинго!<br>" +
+                        "Число <b>" + guess + "</b> — это именно то, что я загадал!<br>Можешь взять пару печенек со стола!</div></html>");
 
                 guessButton.setVisible(false);
                 oneMoreTimeButton.setVisible(true);
@@ -93,11 +100,15 @@ public class App extends JFrame {
                 add(oneMoreTimeButton, BorderLayout.SOUTH);
 
                 inputField.setEnabled(false);
-                messageLabel.setText("<html><div style='max-width: 100%; width: 100%; text-align: center;'>Не-а. Не угадал. " + guess + " оказался неправильным числом. Я загадывал: " + secretNumber + "</div></html>");
+                messageLabel.setText("<html><div style='max-width: 100%; width: 100%; text-align: center;'>Не угадал :)<br>" +
+                        "Ты назвал <b>" + guess + "</b>, а я загадывал <b>" + secretNumber + "</b>.<br>" +
+                        "Может попробуешь ещё разок? Авось повезёт.</div></html>");
             }
             inputField.setText("");
         } catch (Exception e) {
-            messageLabel.setText("<html><div style='max-width: 100%; width: 100%; text-align: center;'>Ошибка: " + e + "</div></html>");
+            messageLabel.setText("<html><div style='max-width: 100%; width: 100%; text-align: center;'>Окак<br>" +
+                    "Похоже, это не число.<br>" +
+                    "Попробуй ввести что-то от " + min + " до " + max + "!</div></html>");
         }
     }
 
